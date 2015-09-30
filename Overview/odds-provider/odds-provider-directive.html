@@ -1,0 +1,22 @@
+<div
+    ng-class="{PopupActive: popupId == provider.id && provider.bonusOffer != null}">
+    <a class="OTBookieLink"
+       ng-click="checkProviderId({pid: provider.id})">
+        <span class="BookieLogo BL"></span>
+        <span class="OTBookie" 
+            ng-bind="::provider.name"></span>
+        <div class="BookieInfo">
+            <span class="Tv" title="Live preview" 
+                ng-if="providerEventRelationObject.offersLiveTV"></span>
+            <span class="Live" title="Live Now" 
+                ng-if="eventStatusId == 1 && providerEventRelationObject.offersLiveOdds"></span>
+            <span class="Bonus" title="Special offer" 
+                ng-if="provider.bonusOffer"></span>
+        </div>
+    </a>
+    <div
+        popup-provider
+        ng-show="popupId == provider.id && provider.bonusOffer != null"
+        ng-class="{Popup: popupId == provider.id && provider.bonusOffer != null}">
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<!-- match-info STATE -->
+<div class="Match">
+    <div ng-if="status == 'success'">
+        <!-- eventOverview Directive-->
+        <event-overview
+            event-id="{{eventId}}"
+            event-overview-data="eventOverviewData"
+            active-betting-types="activeBettingTypes"
+            reload-betting-type="reloadBettingType_state(btId)">
+        </event-overview>
+
+        <!-- <div class="TabLinks">
+            <a class="TabLink TabLinkActive" href="#">Odds</a>
+            <a class="TabLink" href="#">History</a>
+            <a class="TabLink" href="#">Stats</a>
+        </div> -->
+
+        <div class="BetTypesSelect Select"
+            ng-class="{SelectActive: ctrl.checkDropdown() == 'bettingTypes' }"
+            ng-click="$event.stopImmediatePropagation()">
+            <b class="SwitchV"></b>
+            <ul class="SelectList">
+                <li class="SelectItem">
+                    <a class="SelectLink"
+                       ng-class="{disabled: !activeBettingTypes[bettingTypeId]}"
+                       ng-click="selectBettingType(bettingTypeId)"
+                       ng-bind="(bettingTypeId | bbbStrap:'bettingType').name">
+                    </a>
+                </li>
+                <li class="SelectItem"
+                    ng-repeat="betId in eventOverviewData.allAvailableBettingTypes  track by betId"
+                    ng-show="betId != bettingTypeId && ctrl.checkDropdown() == 'bettingTypes'"
+                    ng-class="{BTLItemActive: betId == bettingTypeId}">
+                    <a class="SelectLink"
+                       ng-class="{disabled: !activeBettingTypes[betId]}"
+                       ng-click="selectBettingType(betId, $event)"
+                       ng-bind="(betId | bbbStrap:'bettingType').name">
+                   </a>
+                </li>
+            </ul>
+        </div>
+        <!-- child State -->
+        <div ui-view="eventSubPage"></div>
+    </div>
+
+    <div ng-show="status == 'loading'">
+        <md-progress-circular></md-progress-circular>
+        Loading match data...
+    </div>
+
+    <div ng-if="status == 'error'">
+        <ul>
+            <li ng-repeat="err in error" ng-bind="err.message"></li>
+        </ul>
+    </div>
+</div>
+<!--END of match-info STATE -->

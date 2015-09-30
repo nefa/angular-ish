@@ -1,0 +1,15 @@
+<span class="Score">
+   <!-- <span class="SetScore Inactive">1:6</span> -->
+
+    <span class="SetScore"
+        ng-repeat="(key, eventInfo) in scoreArray  track by key"
+        ng-class="{Present: $last , Past: !$last}">
+        <span ng-bind="eventInfo.homeScore"></span>:<span ng-bind="eventInfo.awayScore"></span>
+        <span class="ScoreLabel">S<span ng-bind="key + 1"></span></span>
+    </span>
+
+    <span class="SetScore Total" ng-show="finalScore">
+          <span ng-bind="finalScore.homeScore"></span>:<span ng-bind="finalScore.awayScore"></span>
+          <span class="ScoreLabel">ST</span>
+    </span>
+</span>

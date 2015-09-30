@@ -1,0 +1,42 @@
+<div class="MatchDetails">
+    <div class="BreadcrumbsLinks">
+        <a class="SportIco icon icon-3-tennis" href="#"></a>
+        <a class="CountryIco" href="#">Country</a>
+        <a href="#">League</a>
+    </div>
+    <h2 class="MatchTitle" ng-if="(!isRacingTournament()) && (!isGenericTournament())">
+        <span ng-repeat="epr in eventParticipantRelationArray">
+            <span ng-switch="epr.participantRoleId">
+                <span ng-switch-when="2" ng-bind="'&mdash; ' + eventOverviewData.participant[epr.participantId].name"></span>
+                <span ng-switch-when="5" ng-bind="'(' + eventOverviewData.participant[epr.participantId].name + ')'"></span>
+                <span ng-switch-default ng-bind="eventOverviewData.participant[epr.participantId].name"></span>
+            </span>
+        </span>
+    </h2>
+    
+    <h2 class="MatchTitle" ng-if="isRacingTournament()">
+        <race-event-title
+            event="eventOverviewData.event[eventId]">
+        </race-event-title>
+    </h2>
+
+    <h2 class="MatchTitle" ng-if="isGenericTournament()">
+        <span ng-bind="eventOverviewData.event[eventId].name"></span>
+    </h2>
+
+    <span class="DateTime">
+        <span class="Live"
+           ng-if="eventOverviewData.event[eventId].statusId == 2">Live</span>
+        <time datetime="{{tagStartDate}}" ng-bind="showStartDate"></time>
+    </span>
+
+    <score-tennis ng-if="::(eventOverviewData.event[eventId].sportId == 3)"
+        event-infos="eventOverviewData.eventInfos"
+        event="eventOverviewData.event[eventId]">
+    </score-tennis>
+
+    <score-default ng-if="::(eventOverviewData.event[eventId].sportId != 3)"
+        event-infos="eventOverviewData.eventInfos"
+        event="eventOverviewData.event[eventId]">
+    </score-default>
+</div>
